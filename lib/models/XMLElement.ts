@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import * as Promise from "bluebird";
+import Promise from "bluebird";
 import {XMLChild} from "./XMLChild";
 import {XMLAttribute} from "./XMLAttribute";
 import * as js2xmlparser from 'js2xmlparser';
@@ -16,8 +16,8 @@ const META_KEY = 'xml:element';
 
 export class XMLElement {
 
-  private attributes: XMLAttribute[];
-  private children: XMLChild[];
+  private attributes!: XMLAttribute[];
+  private children!: XMLChild[];
   private root?: string;
 
   static serialize(entity: any): string;

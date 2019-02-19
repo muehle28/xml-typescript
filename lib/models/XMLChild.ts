@@ -1,3 +1,4 @@
+/* tslint:disable */
 import 'es6-shim';
 import {XMLElement} from "./XMLElement";
 import * as _ from "lodash";
@@ -68,7 +69,7 @@ export class XMLChild {
         } else {
 
           if (entity === schema && this.options.nestedNamespace) {
-            let nsSchema = {};
+            let nsSchema: {[key: string]: string} = {};
 
             for (let key in schema) {
               if (schema.hasOwnProperty(key)) {
@@ -166,7 +167,7 @@ export class XMLChild {
 
   private getAttributes(attributeString: string): {[attrName: string]: string} {
 
-    let attributes = {};
+    let attributes: {[key: string]: string} = { };
 
     if (attributeString) {
 
