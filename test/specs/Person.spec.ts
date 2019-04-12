@@ -1,4 +1,7 @@
+/* tslint:disable:no-unused-expression */
+
 import 'es6-shim';
+// tslint:disable-next-line:no-implicit-dependencies
 import {expect} from 'chai';
 import {Person, PERSON_NS} from "../models/Person";
 import {Hobby, HOBBY_NS} from "../models/Hobby";
