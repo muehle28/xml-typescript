@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import Promise from "bluebird";
+import Bluebird from "bluebird";
 import {XMLChild} from "./XMLChild";
 import {XMLAttribute} from "./XMLAttribute";
 import * as js2xmlparser from 'js2xmlparser';
@@ -12,6 +12,7 @@ const PARSER_OPTIONS = {
     encoding: 'UTF-8'
   }
 };
+
 const META_KEY = 'xml:element';
 
 export class XMLElement {
@@ -30,9 +31,9 @@ export class XMLElement {
     return js2xmlparser.parse(root, schema, PARSER_OPTIONS);
   }
 
-  static serializeAsync(entity: any): Promise<string>;
-  static serializeAsync(root: string, entity: any): Promise<string>;
-  static serializeAsync(...args: any[]): Promise<string> {
+  static serializeAsync(entity: any): Bluebird<string>;
+  static serializeAsync(root: string, entity: any): Bluebird<string>;
+  static serializeAsync(...args: any[]): Bluebird<string> {
 
     const {root, entity} = this.getRootAndEntity(args);
 
@@ -41,8 +42,8 @@ export class XMLElement {
       ;
   }
 
-  static getSchema(entities: any[], schemaOptions?: ISchemaOptions): any;
-  static getSchema(entity: any, schemaOptions?: ISchemaOptions): any;
+  static getSchema(entities: any | any[], schemaOptions?: ISchemaOptions): any;
+  // static getSchema(entity: any, schemaOptions?: ISchemaOptions): any;
   static getSchema(arg: any, schemaOptions: ISchemaOptions = {}): any {
 
     if (arg === void 0) return;
@@ -54,25 +55,25 @@ export class XMLElement {
     return this.processSchema(arg, false, schemaOptions);
   }
 
-  static getSchemaAsync(entities: any[], schemaOptions?: ISchemaOptions): Promise<any>;
-  static getSchemaAsync(entity: any, schemaOptions?: ISchemaOptions): Promise<any>;
-  static getSchemaAsync(arg: any, schemaOptions: ISchemaOptions = {}): Promise<any> {
+  static getSchemaAsync(entities: any | any[], schemaOptions?: ISchemaOptions): Bluebird<any>;
+  // static getSchemaAsync(entity: any, schemaOptions?: ISchemaOptions): Bluebird<any>;
+  static getSchemaAsync(arg: any, schemaOptions: ISchemaOptions = {}): Bluebird<any> {
 
     const processAsync = (entity: any) => {
 
-      return Promise.resolve(this.processSchema(entity, true, schemaOptions));
+      return Bluebird.resolve(this.processSchema(entity, true, schemaOptions));
     };
 
-    if (arg === void 0) Promise.resolve();
+    if (arg === void 0) Bluebird.resolve();
 
     if (Array.isArray(arg)) {
 
-      return Promise.all(arg.map(entity => processAsync(entity)));
+      return Bluebird.all(arg.map(entity => processAsync(entity)));
     }
     return processAsync(arg);
   }
 
-  static getXMLElement(target: any): XMLElement|undefined {
+  static getXMLElement(target: any): XMLElement | undefined {
 
     return Reflect.getMetadata(META_KEY, target);
   }
@@ -96,7 +97,7 @@ export class XMLElement {
 
   static annotate(target: any, options: IXMLElementOptions): void {
 
-    let element = this.getOrCreateIfNotExists(target);
+    const element = this.getOrCreateIfNotExists(target);
 
     element.root = options.root;
   }
