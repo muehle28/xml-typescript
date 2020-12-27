@@ -1,5 +1,5 @@
 {
-  "name": "xml-decorators",
+  "name": "muehle28/xml-decorators",
   "version": "1.0.6",
   "description": "Decorators for xml serialization",
   "main": "index.js",
