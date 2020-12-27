@@ -1,5 +1,5 @@
 {
-  "name": "muehle28/xml-decorators",
+  "name": "@muehle/xml-decorators",
   "version": "1.0.6",
   "description": "Decorators for xml serialization",
   "main": "index.js",
@@ -37,5 +37,9 @@
     "reflect-metadata": "^0.1.8",
     "tslint": "5.11.0",
     "typescript": "2.9.2"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
   }
 }
